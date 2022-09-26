@@ -1,16 +1,17 @@
 /* 
     Logout wrapper 
 */
+import { useThemeStore } from "components/themes/PureBaldrTheme/themeStore";
 import { fetchApi, getCookie } from "helpers/P7RestControler";
 import { useRouter } from "next/router";
-import { useThemeStore } from "../themeStore";
+
 
 interface Props {
   id: any;
   reFetch: any;
 }
 
-export const DeleteProvider: React.FC<Props> = ({ children, id, reFetch }) => {
+const DeleteProvider: React.FC<Props> = ({ children, id, reFetch }) => {
   const setAttr = useThemeStore((state: any) => state.setAttr);
   return (
     <div
@@ -44,3 +45,4 @@ export const DeleteProvider: React.FC<Props> = ({ children, id, reFetch }) => {
     </div>
   );
 };
+export default DeleteProvider

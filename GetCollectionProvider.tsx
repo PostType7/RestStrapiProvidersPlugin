@@ -3,7 +3,7 @@
 */
 import { fetchApi } from "helpers/P7RestControler";
 import { useRouter } from "next/router";
-import { useEffect, memo, useState } from "react";
+import { useEffect} from "react";
 
 interface Props {
   data: [any, any];
@@ -11,11 +11,10 @@ interface Props {
   query?: any;
 }
 
-const GetCollectionProvider: React.FC<Props> = memo(
+const GetCollectionProvider: React.FC<Props> =
   ({ children, data, endpoint, query = {} }) => {
     const qs = require("qs");
     const router = useRouter();
-    const [guardian, setGuardian] = useState<Boolean>(false);
     /* 
       query example
       https://docs.strapi.io/developer-docs/latest/developer-resources/database-apis-reference/rest/api-parameters.html
@@ -31,9 +30,7 @@ const GetCollectionProvider: React.FC<Props> = memo(
       locale: ["en"],
     };
 
-    // try guardian to disavble useeffect
-    if (!guardian) {
-      setGuardian(true);
+    useEffect(() => {
       fetchApi(
         /* parse endpoint with query */
         `${process.env.NEXT_PUBLIC_API_URL}${endpoint}${
@@ -51,12 +48,8 @@ const GetCollectionProvider: React.FC<Props> = memo(
             : data[1]({ loading: false, data: res.data, meta: res.meta });
         }
       );
-      
-    }
-
-    // useEffect(() => {
-    // }, [data[1], router?.query?.slugPath]);
+    }, [data[1], router?.query?.slugPath]);
     return <>{children}</>;
   }
-);
+;
 export default GetCollectionProvider;

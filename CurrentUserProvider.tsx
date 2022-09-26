@@ -2,16 +2,17 @@
     Logout wrapper 
 */
 
+import { useThemeStore } from "components/themes/PureBaldrTheme/themeStore";
 import { getCookie, fetchApi } from "helpers/P7RestControler";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useThemeStore } from "../themeStore";
+
 
 interface Props {
   currentUserEndpoint: string;
 }
 
-export const CurrentUserProvider: React.FC<Props> = ({
+const CurrentUserProvider: React.FC<Props> = ({
   currentUserEndpoint,
   children,
 }) => {
@@ -19,13 +20,15 @@ export const CurrentUserProvider: React.FC<Props> = ({
   const themeStore = useThemeStore((state: any) => state.theme);
   const setAttr = useThemeStore((state: any) => state.setAttr);
 
-  const unauthenticateRedirrect = () =>{
-    router.push("/login");
-  }
+  const unauthenticateRedirrect = () => {
+    if(router.asPath != '/login'){
+      router.push("/login");
+    }
+  };
 
   useEffect(() => {
     const token = getCookie("jwt");
-    if(!token){
+    if (!token) {
       unauthenticateRedirrect();
     }
     if (!themeStore.currentUser.id) {
@@ -38,13 +41,12 @@ export const CurrentUserProvider: React.FC<Props> = ({
           },
         },
         (res: any) => {
-          console.log("auth check",res.id)
+          console.log("auth check", res.id);
           if (res.id) {
             setAttr({ path: "theme.currentUser", value: res });
-            return true
-          } 
+            return true;
+          }
           unauthenticateRedirrect();
-         
         }
       );
     }
@@ -57,3 +59,4 @@ export const CurrentUserProvider: React.FC<Props> = ({
     </>
   );
 };
+export default CurrentUserProvider;

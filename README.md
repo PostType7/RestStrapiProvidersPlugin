@@ -2,11 +2,11 @@
 
 Frontendapp providers to communicate and manage Strapi rest actions like:
 
-- Login Provider
-- CheckCurrentUser Provder
-- GetCollection Provider
-- GetSingle Provider
-- CreateSingle Provder
-- UpdateSingle Provider
-- DeleteSingle Provider
-- Logout Provider
+- CurrentUser provder
+- GetCollection provider
+- GetSingle provider
+- DeleteSingle provider
+- Logout provider
+- Login helper
+- POST helper
+- PUT helper

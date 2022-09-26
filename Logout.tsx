@@ -6,12 +6,12 @@ import { NavItem } from "components/themes/NativeTheme/navigation";
 import { deleteCookie, getCookie } from "helpers/P7RestControler";
 import { useRouter } from "next/router";
 
-export const Logout: React.FC = ({ children }) => {
+const Logout: React.FC = ({ children }) => {
   const router = useRouter();
   return (
     <NavItem
       onClick={() => {
-        deleteCookie("jwt");
+        console.log(deleteCookie("jwt"));
         if (!getCookie("jwt")) {
           router.push("/login");
         } else {
@@ -23,3 +23,4 @@ export const Logout: React.FC = ({ children }) => {
     </NavItem>
   );
 };
+export default Logout;
